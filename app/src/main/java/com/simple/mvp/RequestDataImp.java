@@ -17,7 +17,7 @@ public class RequestDataImp implements RequestData {
             public void run() {
 
                 try {
-                    Thread.sleep(2000); //模仿网络请求
+                    Thread.sleep(2000); //设置延迟，模仿网络请求
 
                     List<UserBean> datas = new ArrayList<>();
                     for (int i = 1; i < 20; i++) {

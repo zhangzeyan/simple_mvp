@@ -30,16 +30,18 @@ public class MVPActivity extends Activity implements MVPViewInter, AdapterView.O
 
         setContentView(R.layout.activity_mvp);
 
+        //初始化控件
         mvpListView = (ListView)findViewById(R.id.mListView);
         mvpListView.setOnItemClickListener(this);
         pb = (ProgressBar) findViewById(R.id.mLoading);
-
 
         userBeanList = new ArrayList<>();
         adapter = new UserDataAdapter(this, userBeanList);
         mvpListView.setAdapter(adapter);
 
+        //实例化Presenter
         mvpPresenter = new MVPPresenter(this);
+        //调用Presenter层请求数据
         mvpPresenter.requestForData();
 
     }
@@ -65,7 +67,6 @@ public class MVPActivity extends Activity implements MVPViewInter, AdapterView.O
     public void showMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

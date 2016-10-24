@@ -12,22 +12,21 @@ import java.util.List;
 public class MVPPresenter {
 
     private MVPViewInter mvpView;
-    RequestData requestBiz;
+    private RequestData requestData;
     private Handler mHandler;
 
     public MVPPresenter(MVPViewInter mvpView) {
         this.mvpView = mvpView;
-        requestBiz = new RequestDataImp();
+        requestData = new RequestDataImp();
         mHandler = new Handler(Looper.getMainLooper());
     }
 
     public void requestForData(){
         mvpView.showLoading();
-        requestBiz.requestForData(new RequestData.OnRequestListener() {
+        requestData.requestForData(new RequestData.OnRequestListener() {
             @Override
             public void onSuccess(final List<UserBean> data) {
-                //由于请求开启了新线程，所以用handler去更新界面
-                mHandler.post(new Runnable() {
+                mHandler.post(new Runnable() { //需要使用handler去更新界面
                     @Override
                     public void run() {
                         mvpView.hideLoading();
@@ -48,7 +47,6 @@ public class MVPPresenter {
         mvpView.showMessage("点击了item"+position);
     }
 
-    //presenter中添加mvpView 置为null的方法
     public void onDestroy(){
         mvpView = null;
     }
